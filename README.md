@@ -30,6 +30,8 @@ specification to describe this ability as well, and move the document to the sta
 
 # Example code
 
+Please see [WebIDL.md](WebIDL.md) for the proposed WebIDL.
+
 ## Requesting a periodic sync
 ```javascript
 // index.html
