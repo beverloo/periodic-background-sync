@@ -66,7 +66,8 @@ We think that the use cases for periodic background sync are sufficiently differ
 cases for one-shot background sync to justify having a separate event in the developer's service
 worker: synchronizing data in response to a user action versus opportunistically refreshing
 content. In addition, there are different timing guarantees: one-shot sync has to run as soon as
-possible, where the browser has the final timing decision for periodic sync.
+possible, where the browser has the final timing decision for periodic sync, as long as it
+honors the requested `minInterval` between two consecutive events.
 
 The interfaces mimic regular Background Sync, but substitute `navigator.sync` with
 `navigator.periodicSync` for symmetry with the event that will be fired in the service worker.
