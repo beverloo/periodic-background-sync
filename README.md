@@ -17,7 +17,33 @@ If this proposal stands, we plan to extend the [Background Sync](https://wicg.gi
 specification to describe this ability as well, and move the document to the standardization track.
 
 ## Use cases
-  * todo
+  Many apps benefit from updating their state and content when the device has
+  network connectivity, before the user navigates to their web page.
+  This skips the otherwise slow and laggy experience that the
+  user would otherwise go through if the app was being updated while being used.
+
+  The app can also delight its users by presenting the most up to date content,
+  right away at launch time.
+
+  Here are two main types of updates that are beneficial if done
+  opportunistically:
+  1. Updating state:
+     This is the data required for the correct functioning of the app. Examples:
+     a. Updated search index for a search app.
+     b. Synchronized game scores for the user and her friends for a gaming app.
+     c. Updated icons after a UI overhaul of a web app.
+
+  2. Updating content:
+     Periodic content producers can push content to user devices,
+     to be consumed at a later, more convenient time. Examples:
+     a. Fresh articles from news and Manga sites.
+     b. Synchronized photos from other devices, in a photo app.
+     c. New songs from their favorited artists, in a songs app.
+
+  Currently, the Push API enables this, but it requires setting up a server
+  that speaks the Web Push protocol, and is GDPR compliant. Additional tasks
+  like resource and certificate management add complexity to this approach.
+  Periodic Background Sync offers a simpler, more accessible solution.
 
 ## Why do we care?
   * todo
