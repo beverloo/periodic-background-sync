@@ -91,6 +91,27 @@ self.addEventListener('periodicsync', event => {
 });
 ```
 
+## Checking if a periodic sync task with a given tag is registered
+```javascript
+// index.html
+
+navigator.serviceWorker.ready.then(registration => {
+  registration.periodicSync.getTags().then(tags => {
+    if (tags.includes('get-latest-news'))
+      skipDownloadingLatestNewsOnPageLoad();
+  });  
+});
+```
+
+## Removing a periodic sync when the user signs out
+```javascript
+// index.html
+
+navigator.serviceWorker.ready.then(registration => {
+  registration.periodicSync.unregister('get-latest-news');
+});
+```
+
 # Security and Privacy
 
 One-shot Background Sync allows the web page’s logic to live a little longer (service worker
