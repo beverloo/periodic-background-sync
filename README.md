@@ -23,10 +23,21 @@ specification to describe this ability as well, and move the document to the sta
   * todo
 
 ## Goals
-  * todo
+* Enable a web app to register tasks to be run periodically, with a retry logic baked in, which has an exponential backoff.
+* Provide the web app a way to query the list of previously registered tasks.
+* Enable the web app to unregister previously registered tasks.
+* Supported platforms: Android, Windows, Linux, ChromeOS, Mac. 
 
 ## Non-goals
-  * todo
+* Triggering events at a specific time is an explicit non-goal. The alarms API enables that.
+* Notifying the user for each periodic Sync event. The user can be presented with updated content
+  when they next visit the website.
+* Unsupported platforms: iOS, WebView. This API requires a way to wake up the service worker, but
+  in a WebView, the browser cannot start itself, and instead it only starts when the embedding app embeds a WebView.
+  In addition, it's hard to identify the correct WebView to deliver the periodic sync event to.
+* Multiple periodic tasks per origin, with varying frequency. The browser decides the cadence of
+  periodic sync tasks for each origin, based on the user's engagement with that site. An origin
+  can thus register multiple periodic tasks, but the frequency decided by the browser for the tasks can be the same.
 
 # Example code
 
@@ -42,7 +53,7 @@ navigator.serviceWorker.ready.then(registration => {
     minInterval: 24 * 60 * 60 * 1000,
   });
 });
-````
+```
 
 ## Responding to a periodic sync event
 ```javascript
