@@ -37,3 +37,11 @@ dictionary BackgroundSyncOptions {
   unsigned long long minInterval;
 };
 ```
+
+## Extensions to the Permissions API
+```webidl
+enum PermissionsName {
+  // …existing permissions…
+  "periodic-background-sync",
+}
+```

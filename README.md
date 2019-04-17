@@ -1,7 +1,7 @@
 # Periodic Background Sync
 
 **Written**: 2019-03-26<br/>
-**Updated**: 2019-03-27
+**Updated**: 2019-04-17
 
 Periodic Background Sync is a method that enables web applications to periodically synchronize data
 in the background, building on the [Background Sync](https://wicg.github.io/BackgroundSync/spec/)
@@ -85,16 +85,35 @@ self.addEventListener('periodicsync', event => {
 
 # Security and Privacy
 
-TODO
+One-shot Background Sync allows the web page’s logic to live a little longer (service worker
+execution time) after the page has been closed by the user. Periodic Background Sync extends it to
+potentially run forever, at regular periods, for a few minutes at a time. Here are some privacy
+concerns:
+
+* There might be no notification to the user, depending on the implementation.
+* A periodic sync can be enabled while the user is connected to one network, and the sync event
+can be fired later when they're connected to another network. This can cause inadvertent leakage 
+of browsing history on an unintended network. This concern applies to other background tasks such as
+one-shot Background Sync and Background Fetch as well.
+* Location tracking: The user’s IP address can be revealed to the website every time the periodic
+task is run. This risk is also present with any tasks run in a service worker, but Periodic Sync
+allows persistent tracking. Note that this risk is also present with push messages,
+but they require explicit user permission.
+
+To mitigate these privacy concerns, the user agent can limit the number of times periodic tasks are
+run for a site if the user isn't currently visiting the site.
+
+An additional `periodic-background-sync` permission will be exposed through the Permissions API to
+allow developers to query whether the API can be used.
 
 # Design decisions
 
 ## Separate interface or extending one-shot Background Sync?
 We think that the use cases for periodic background sync are sufficiently different from the use
-cases for one-shot background sync to justify having a separate event in the developer's service
+cases for one-shot Background Sync to justify having a separate event in the developer's service
 worker: synchronizing data in response to a user action versus opportunistically refreshing
-content. In addition, there are different timing guarantees: one-shot sync has to run as soon as
-possible, where the browser has the final timing decision for periodic sync, as long as it
+content. In addition, there are different timing guarantees: one-shot Background Sync has to run as
+soon as possible, where the browser has the final timing decision for periodic sync, as long as it
 honors the requested `minInterval` between two consecutive events.
 
 The interfaces mimic regular Background Sync, but substitute `navigator.sync` with
