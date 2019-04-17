@@ -66,7 +66,7 @@ navigator.serviceWorker.ready.then(registration => {
     minInterval: 24 * 60 * 60 * 1000,
   });
 });
-````
+```
 
 ## Responding to a periodic sync event
 ```javascript
@@ -76,6 +76,27 @@ self.addEventListener('periodicsync', event => {
   if (event.tag == 'get-latest-news') {
     event.waitUntil(fetchAndCacheLatestNews());
   }
+});
+```
+
+## Checking if a periodic sync task with a given tag is registered
+```javascript
+// index.html
+
+navigator.serviceWorker.ready.then(registration => {
+  registration.periodicSync.getTags().then(tags => {
+    if (tags.includes('get-latest-news'))
+      skipDownloadingLatestNewsOnPageLoad();
+  });  
+});
+```
+
+## Removing a periodic sync when the user signs out
+```javascript
+// index.html
+
+navigator.serviceWorker.ready.then(registration => {
+  registration.periodicSync.unregister('get-latest-news');
 });
 ```
 
