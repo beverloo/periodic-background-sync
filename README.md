@@ -47,10 +47,14 @@ specification to describe this ability as well, and move the document to the sta
   * todo
 
 ## Goals
-  * todo
+* Enable a web app to run tasks periodically on network connectivity.
 
 ## Non-goals
-  * todo
+* Triggering events at a specific time is an explicit non-goal. A more generalized alarms API can
+enable that.
+* Multiple periodic tasks per origin, with varying frequency. The browser decides the cadence of
+  periodic sync tasks for each origin. An origin can thus register multiple periodic tasks, but the
+  frequency decided by the browser for the tasks can be the same.
 
 # Example code
 
@@ -66,7 +70,7 @@ navigator.serviceWorker.ready.then(registration => {
     minInterval: 24 * 60 * 60 * 1000,
   });
 });
-````
+```
 
 ## Responding to a periodic sync event
 ```javascript
