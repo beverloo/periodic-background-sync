@@ -44,7 +44,15 @@ specification to describe this ability as well, and move the document to the sta
   this approach. Periodic Background Sync offers a simpler, more accessible solution.
 
 ## Why do we care?
-  * todo
+  * Native apps currently have the ability to offer fresh content to users, even when they're 
+  offline. This API will enable web apps to do so too.
+  * Websites can already push notifications to update content, but the timing of those notifications
+  is decided by the developer. This API enables the browser to decide on the timing, so it can be
+  be more respectful of user's intents like 'Do Not Disturb', and prevent notification fatigue.
+  In addition, this control on timing allows the browser to optimize resource usage and prevent
+  resource abuse. For instance, the browser may decide how often each website should be allowed to
+  run their tasks. It may also choose to only run periodic tasks when the device is sufficiently
+  charged, or has a certain connectivity.
 
 ## Goals
   * todo
