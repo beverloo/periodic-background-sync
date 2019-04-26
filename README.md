@@ -28,20 +28,22 @@ specification to describe this ability as well, and move the document to the sta
   1. Updating state:
      This is the data required for the correct functioning of the app. Examples:
      * Updated search index for a search app.
-     * Pushing a critical application update.
-     * Updated icons after a UI overhaul of a web app.
+     * A critical application update.
+     * Updated icons.
 
   2. Updating content:
      Periodic content producers can push content to user devices, to be consumed at a later, more
      convenient time. Examples:
-     * Fresh articles from news sites.
+     * Fresh articles from news sites. Push API can be used here, but the updates will be too
+     frequent, so the content site will have to batch the push messages. The browser is in a much
+     better position to do that.
      * List of badges the user has earned, in a fitness app.
      * List of new songs from their favorited artists, in a songs app, to be downloaded using
-        Background Fetch if the user clicks on "Download".
+     Background Fetch if the user clicks on "Download".
 
   Currently, the Push API enables this, but it requires setting up a server that speaks the Web
-  Push protocol. Additional tasks like resource management add complexity to this approach. Periodic
-  Background Sync offers a simpler, more accessible solution.
+  Push protocol, and maintaining a backend. Periodic Background Sync offers a simpler, more
+  accessible solution.
 
 ## Why do we care?
   * Native apps currently have the ability to offer fresh content to users, even when they're 
@@ -55,7 +57,7 @@ specification to describe this ability as well, and move the document to the sta
   charged, or has a certain connectivity.
 
 ## Goals
-* Enable a web app to run tasks periodically on network connectivity.
+* Enable a web app to run tasks periodically while the device has network connectivity.
 
 ## Non-goals
 * Triggering events at a specific time is an explicit non-goal. A more generalized alarms API can
@@ -106,7 +108,7 @@ navigator.serviceWorker.ready.then(registration => {
 });
 ```
 
-## Removing a periodic sync when the user signs out
+## Removing a periodic sync to stop syncing articles in the background
 ```javascript
 // index.html
 
@@ -132,7 +134,8 @@ allows persistent tracking. Note that this risk is also present with push messag
 but they require explicit user permission.
 
 To mitigate these privacy concerns, the user agent can limit the number of times periodic tasks are
-run for a site if the user isn't currently visiting the site.
+run for a site if the user isn't currently visiting the site. It can also limit how long the service
+worker is allowed to be awake for running periodic tasks.
 
 An additional `periodic-background-sync` permission will be exposed through the Permissions API to
 allow developers to query whether the API can be used.
