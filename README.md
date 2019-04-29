@@ -1,7 +1,7 @@
 # Periodic Background Sync
 
 **Written**: 2019-03-26<br/>
-**Updated**: 2019-04-17
+**Updated**: 2019-04-29
 
 Periodic Background Sync is a method that enables web applications to periodically synchronize data
 in the background, building on the [Background Sync](https://wicg.github.io/BackgroundSync/spec/)
