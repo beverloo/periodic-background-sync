@@ -1,0 +1,30 @@
+<pre class="metadata">
+Title: Periodic Background Sync
+Shortname: periodic-sync
+Level: 1
+Status: UD
+Group: wicg
+URL: https://beverloo.github.io/periodic-background-sync/spec
+Editor: Peter Beverloo, Google, beverloo@google.com
+Editor: Mugdha Lakhani, Google, nator@google.com
+Abstract: An API to enable web applications to periodically update themselves in the background.
+Markup Shorthands: css no, markdown yes
+Indent: 2
+</pre>
+
+<pre class=link-defaults>
+spec:infra; type:dfn; text:list
+spec:html; type:dfn; for:/; text:browsing context
+spec:html; type:dfn; for:/; text:origin
+</pre>
+
+# Introduction # {#intro}
+
+## Use cases ## {#use-cases}
+
+## Example ## {#example}
+
+# Privacy Considerations # {#privacy}
+
+# API Description # {#api}
+
