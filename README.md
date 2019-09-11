@@ -135,7 +135,8 @@ To mitigate these privacy concerns, the user agent can limit the number of times
 run for a site if the user isn't currently visiting the site.
 
 An additional `periodic-background-sync` permission will be exposed through the Permissions API to
-allow developers to query whether the API can be used.
+allow developers to query whether the API can be used. The user or the user agent on behalf of the
+user must set this permission to 'granted' before the website can use this capability.
 
 # Design decisions
 
@@ -153,8 +154,12 @@ The interfaces mimic regular Background Sync, but substitute `navigator.sync` wi
 ## Power and Network conditions
 The original explainer allowed the website to specify power and network conditions under which the
 periodic task should be run. This proposal leaves those decisions to the browser implementation,
-because we believe the browser is better positioned to make those choices for the user. This also
-makes for a simpler interface for developers.
+because we believe the browser is better positioned to make those choices for the user.
+This also makes for a simpler interface for developers.
+
+When the device is in either battery or data saving mode, the `periodicsync` event SHOULD not be
+fired. This would also cover some situations where the browser incorrectly detects whether the
+device is connected to an unmetered connection.
 
 ## Timing of periodic sync tasks
 The API allows the developer to specify a `minInterval` for each periodic sync task. The browser is
