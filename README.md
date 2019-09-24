@@ -171,6 +171,21 @@ interval between any two periodic sync events can be greater than the requested 
 is up to the browser implemetation. Also, the interval between any two periodic sync events for a
 registration doesn't have to be the same.
 
+Since a website will most likely download resources from the network when processing a
+`periodicsync` event, multiple `periodicsync` events can cause a lot of data consumption. Like other
+service worker events, `periodicsync` MAY be subject to the service worker execution timeout. Every
+time the browser dispatches these events, the browser will potentially be kept awake for this
+duration, which COULD be a few minutes. This can cause battery drain. The browser implementation
+SHOULD therefore ensure an appropriate interval for firing these events. It MAY cap this interval
+per origin and across origins. The browser MAY also use other considerations, such as as user
+engagement with the origin, to make this decision.
+
+To decide what an appropriate interval is, consider how often the underlying operating system allows
+scheduling repetetive tasks. Android and iOS impose a minimum interval of 15 and 10 minutes,
+respectively, at the time of writing. For installed web apps, however, this interval is too small.
+This is because firing the event in the browser from an installed web app puts a higher strain on
+the system and is more resource intensive.
+
 # References and acknowledgements
 
   * [Background Sync](https://wicg.github.io/BackgroundSync/spec/)
